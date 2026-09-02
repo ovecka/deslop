@@ -28,7 +28,8 @@ run "git worktree prune"
 echo "== 3. Restore foreign agent context from quarantine =="
 if [ -f .claude/settings.json ]; then run "mkdir -p $Q/reports && mv .claude/settings.json $Q/reports/harness-settings.json"; fi
 run "rm -f .env.selftest"
-for f in .claude CLAUDE.md AGENTS.md .cursorrules .mcp.json .github/copilot-instructions.md; do
+# everything the session quarantined (bootstrap list + ad-hoc, e.g. GEMINI.md), except reports/
+for f in $(cd "$Q" && find . -mindepth 1 -maxdepth 2 ! -path './reports*' ! -name reports ! -path './.github' | sed 's|^\./||'); do
   if [ -e "$Q/$f" ]; then
     if [ -e "$f" ] && [ "$f" != ".claude" ]; then
       echo "  CONFLICT: $f exists (harness) and $Q/$f (foreign). Harness copy is committed on the branch;"

@@ -1,0 +1,16 @@
+{
+  "env": { "CLAUDE_CODE_SUBAGENT_MODEL": "sonnet" },
+  "permissions": {
+    "deny": [
+      "Read(./.env*)", "Read(./**/.env*)",
+      "Read(./**/*.pem)", "Read(./**/*.key)", "Read(./**/*credentials*)",
+      "Bash(git stash:*)", "Bash(git reset:*)", "Bash(git checkout:*)"
+    ]
+  },
+  "sandbox": {
+    "enabled": true,
+    "filesystem": {
+      "denyRead": ["./.env*", "./**/.env*", "./**/*.pem", "./**/*.key", "./**/*credentials*"]
+    }
+  }
+}

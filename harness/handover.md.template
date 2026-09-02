@@ -1,0 +1,40 @@
+# Handover — <project> — <date>
+
+## Acceptance criteria (negotiated at minute 0)
+- Production run means: <deploy target / path judgment>
+- Data classification: <internal tool / customer data / payment flow>
+- Slot length: <min> → <N> discovery sweeps
+- Main path (stakeholder's words, whole pipeline input → output, not README's first command): <stage → stage → …>
+- Already decided about the product (ask the stakeholder BEFORE the first finding — a fix
+  built on an assumed product is wasted iterations): <e.g. "no anonymous tier, all AI
+  calls behind login, budget per user">
+
+## Baseline (what's true)
+- Runs: <yes / DEGRADED MODE — gate is static-only, severities marked unverified>
+- Green: <tests / lint / typecheck / lockfile state>
+
+## My predictions before discovery (eval input)
+- <prediction 1>
+- <prediction 2>
+
+## Findings → commits (audit trail)
+| Finding-Id | file:line | severity | commit | verdict |
+|------------|-----------|----------|--------|---------|
+
+## Deferred (with reasons)
+- <finding — reason for deferral>
+
+## Path to production (ordered — incl. what this session didn't get to)
+1. <env config / health endpoint / logs / deploy steps / rollback / monitoring>
+
+## For the app author (non-IT, human language)
+- What changed and why: <plain sentences, no jargon>
+- What still needs a decision from you: <...>
+
+## Eval loop closure
+- Predictions vs. agent reports — divergences: <...>
+- Rubric/CLAUDE.md patch taken from this session: <...>
+- Session cost (approx): <tokens / $>
+
+## Next concrete step
+- <one action a fresh session starts with>

@@ -1,0 +1,8 @@
+# private coaching material and practice repos stay out of the public harness
+playbook*.md
+brick/
+portfolio_analyzer/
+node_modules/
+package.json
+package-lock.json
+.docker-home/

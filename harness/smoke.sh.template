@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+# Smoke test of the main path — regression detector, not coverage.
+# Characterization test: freezes CURRENT behavior, bugs included. Knowingly.
+# Runs outside the dependency tree on purpose (no test runner needed).
+# Validated red-green: break the main path, watch this fail, revert.
+set -euo pipefail
+
+BASE_URL="${BASE_URL:-http://localhost:3000}"
+
+# If the smoke test starts the server itself: setsid + kill the process GROUP.
+# `kill $PID` on an npx/npm wrapper leaves the node child alive and the next run
+# passes against the leftover (brick run 3). Use a real writable dir for the log,
+# never bare $TMPDIR (unset outside the sandbox -> silent no-op).
+# LOG="${LOG:-./.quarantine/reports/smoke.log}"
+# setsid npx next dev -p 3000 >"$LOG" 2>&1 & SERVER_PID=$!
+# echo "$SERVER_PID" >> .quarantine/pids   # teardown.sh kills leftovers from here
+# trap 'kill -- -"$SERVER_PID" 2>/dev/null || kill "$SERVER_PID" 2>/dev/null' EXIT
+# for i in $(seq 1 30); do curl -sf "$BASE_URL" >/dev/null && break; sleep 1; done
+
+# Example checks — replace with the actual main path walked in Phase 1:
+curl -sf --max-time 10 "$BASE_URL/health" >/dev/null || { echo "✗ health"; exit 1; }
+# curl -sf --max-time 10 "$BASE_URL/login" -d 'user=x&pass=y' | grep -q 'token' || { echo "✗ login"; exit 1; }
+
+# Fix loop: one assertion per fix (Phase 5). Must be RED against the pre-fix
+# worktree (git worktree add ../<repo>-prefix <base>; BASE_URL=that server) and
+# GREEN on HEAD. Example shape:
+# code=$(curl -s -o /dev/null -w '%{http_code}' --max-time 10 -X POST "$BASE_URL/api/insight")
+# [ "$code" = "401" ] || { echo "✗ F-002 insight unauth expected 401, got $code"; exit 1; }
+
+echo "✓ smoke green"

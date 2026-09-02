@@ -31,8 +31,8 @@ print .env* (except .env.example) or secret values; review of a diff = ONE sonne
 agent with the diff as sole input, max 5 findings, never a generic review skill;
 test first = run the new test and paste the failing output BEFORE editing the
 implementation; commit only after my go (docs/handover/evals commits pre-authorized);
-trailers Finding-Id, Model, Reviewed-By (human only if a human read it, else
-main-session). Product decisions are never yours or mine: ask me, I ask the user.
+trailers Finding-Id, Model, Reviewed-By: main-session (the human never reads
+diffs; gate + review agent are the oracle). Product decisions are never yours or mine: ask me, I ask the user.
 A sandbox/permission denial is information: tell the user in your session, never
 ask me to route around it.
 

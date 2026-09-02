@@ -2,7 +2,12 @@
 
 Every fuckup is a harness bug. Measure it, patch the harness, note the patch.
 
-| Fix (Finding-Id) | Passed 1st try | Iterations | CLAUDE.md violation | Harness patch |
-|------------------|---------------|------------|--------------------|---------------|
+| Fix (Finding-Id) | Impl model | Passed 1st try | Iterations | CLAUDE.md violation | Harness patch |
+|------------------|-----------|---------------|------------|--------------------|---------------|
+
+## Cost checkpoints (run `/cost` BEFORE every `/clear` — clear erases it)
+
+| When (phase) | Session | $ | Tokens |
+|--------------|---------|---|--------|
 
 Retry cap: 3 iterations per fix, then back to triage and swap for another finding.

@@ -90,7 +90,8 @@ Save diffs to .quarantine/reports/<step>.diff; I read what I need myself.
    intended process is known. Severity inflation = rubric bug: patch `rubrika.md`
    live, reclassify, then triage.
    **Checkpoint: `/clear` the working session here** — findings merged and
-   committed, porcelain clean; it resumes from handover.md.
+   committed, porcelain clean; it resumes from handover.md. **Run `/cost`
+   first and write the number into evals.md** — clear erases it for good.
 5. **Fixes through the gate** — per fix: pre-fix worktree → one implementation
    agent, one finding, test first with shown red → one smoke assertion, red on
    the worktree, green on HEAD → `gate.sh` → one review agent on the diff →

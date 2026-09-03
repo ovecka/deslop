@@ -54,6 +54,12 @@ Save diffs to .quarantine/reports/<step>.diff; I read what I need myself.
 - **Main path, in the stakeholder's words, whole pipeline input → output.** Never
   derived from the README's first command.
 - What is already decided about the product (who may use what, what is cancelled)?
+- **What leaves the app to third parties** (LLM APIs, scrapers, SaaS, payment
+  providers) and is that decided? PII to a model vendor is a compliance finding
+  in fintech, not a design note.
+- **Platform-generated?** (Bolt, Lovable, v0, Replit, n8n …) Where is the source
+  of truth, is it exportable, does deploy/rollback live in the platform? Then authz
+  is RLS/security rules, not route code — sweep A changes shape.
 - Slot length → number of discovery sweeps. Exit criterion = process demonstrated
   and handed over, not an empty backlog.
 
@@ -66,8 +72,10 @@ Save diffs to .quarantine/reports/<step>.diff; I read what I need myself.
    honestly labeled: sandbox = enforcement, permissions deny = guardrail,
    CLAUDE.md = instruction.
 1. **Orient + baseline** — install in sandbox (`--ignore-scripts`, rebuild only
-   what runtime needs), walk the main path by hand, inventory tests/lint/typecheck/
-   lockfile (check configuration, not exit codes). Timebox; not runnable →
+   what runtime needs), walk the main path by hand and write it into handover.md as
+   a trace table `stage | command | input → output | network/secret` (the
+   network column is the egress inventory sweep D triages), inventory tests/lint/
+   typecheck/lockfile (check configuration, not exit codes). Timebox; not runnable →
    degraded mode: static gate, severities `unverified`, first fix = reproducible
    bootstrap. Write 3–5 predictions into handover.md (eval input).
 2. **Net** — `smoke.sh`: characterization test of the main path outside the
@@ -76,9 +84,10 @@ Save diffs to .quarantine/reports/<step>.diff; I read what I need myself.
 3. **Discovery** — layer 1 deterministic: gitleaks (history + `--no-git`,
    `--redact`), semgrep `p/default` (missing → try install, else `not run` in handover; no fake fallback),
    `npm audit`/equivalent, knip/dead code, lockfile drift. Layer 2: three
-   read-only sonnet sweeps (A auth/secrets/input/prompt-injection, B data +
-   money integrity + silent failures, C observability + ops maturity + dead-code
-   triage), plus D (money/quota integrity) when data is customer/payment class.
+   read-only sonnet sweeps (A auth/secrets/input/prompt-injection — RLS + client
+   key exposure when platform-generated, B data + money integrity + silent
+   failures, C observability + ops maturity + dead-code triage), plus D (money/
+   quota integrity, webhooks, third-party egress) when data is customer/payment class.
    Cap 3 new findings per axis, negative findings mandatory, every `file:line`
    mechanically verified before merge into handover.md. Sweep C always writes
    the "Observability" and "Architecture & testability (backlog only)" sections.
@@ -87,7 +96,8 @@ Save diffs to .quarantine/reports/<step>.diff; I read what I need myself.
    authn/authz → backlog with reasons. Pick 1–2 fixes. A sub-issue of a root
    finding (e.g. path traversal on an API with no auth at all) is triaged under
    its root, not cherry-picked. A red test ≠ production problem until the
-   intended process is known. Severity inflation = rubric bug: patch `rubrika.md`
+   intended process is known. "Do not productionize — replace/retire" is a
+   legitimate verdict with a reason and a replacement named. Severity inflation = rubric bug: patch `rubrika.md`
    live, reclassify, then triage.
    **Checkpoint: `/clear` the working session here** — findings merged and
    committed, porcelain clean; it resumes from handover.md. **Run `/cost`

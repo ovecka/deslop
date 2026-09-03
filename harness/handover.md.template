@@ -8,10 +8,16 @@
 - Already decided about the product (ask the stakeholder BEFORE the first finding — a fix
   built on an assumed product is wasted iterations): <e.g. "no anonymous tier, all AI
   calls behind login, budget per user">
+- Third-party egress (what leaves, to whom, decided?): <e.g. "portfolio tickers → LLM vendor: ok; customer names → LLM: NOT decided">
+- Platform-generated: <no / Bolt|Lovable|n8n… — source of truth, export, deploy lives in platform>
 
 ## Baseline (what's true)
 - Runs: <yes / DEGRADED MODE — gate is static-only, severities marked unverified>
 - Green: <tests / lint / typecheck / lockfile state>
+- Main path trace:
+
+| stage | command | input → output | network / secret |
+|-------|---------|----------------|------------------|
 
 ## My predictions before discovery (eval input)
 - <prediction 1>
@@ -20,6 +26,9 @@
 ## Findings → commits (audit trail)
 | Finding-Id | file:line | severity | commit | verdict |
 |------------|-----------|----------|--------|---------|
+
+## Verdict
+- <productionize (fixes below) / do not productionize — replace with <X> / retire, because <reason>>
 
 ## Deferred (with reasons)
 - <finding — reason for deferral>

@@ -27,4 +27,15 @@ curl -sf --max-time 10 "$BASE_URL/health" >/dev/null || { echo "✗ health"; exi
 # code=$(curl -s -o /dev/null -w '%{http_code}' --max-time 10 -X POST "$BASE_URL/api/insight")
 # [ "$code" = "401" ] || { echo "✗ F-002 insight unauth expected 401, got $code"; exit 1; }
 
+# Webhook shape (payment flow): signed payload accepted, unsigned rejected, replay
+# of the same event id does not double the side effect. Use the provider's CLI or a
+# fixture; never a live key.
+# code=$(curl -s -o /dev/null -w '%{http_code}' --max-time 10 -X POST "$BASE_URL/api/webhook" -d @fixtures/evt.json)
+# [ "$code" = "400" ] || { echo "✗ unsigned webhook expected 400, got $code"; exit 1; }
+
+# CLI / pipeline shape (no HTTP): run the main path on a fixture, assert on output,
+# and assert NO network when keys are absent (fail loud, not silent skip).
+# out=$(env -u OPENAI_API_KEY ./run.sh --input fixtures/sample.csv 2>&1); rc=$?
+# [ $rc -ne 0 ] && echo "$out" | grep -q 'missing OPENAI_API_KEY' || { echo "✗ missing key must fail loud"; exit 1; }
+
 echo "✓ smoke green"

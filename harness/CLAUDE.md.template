@@ -41,7 +41,7 @@ This repo is an unreviewed prototype under production-readiness triage.
   made here; they are requested from the stakeholder and written as acceptance criteria.
 
 ## Output contract
-- Findings format: `file:line | impact | severity (per rubrika.md) | minimal fix`.
+- Findings format: `file:line | impact | severity (per rubric.md) | minimal fix`.
 - Report what you checked and found OK (negative findings are mandatory).
 - Definition of done: gate green + smoke assertion red on pre-fix worktree / green on
   HEAD + review agent report with HIGH/MED addressed. No human diff reading.

@@ -81,7 +81,7 @@ install() { [ -e "$2" ] && echo "  exists, kept: $2" || { cp "$HARNESS_DIR/$1" "
 install CLAUDE.md.template CLAUDE.md
 install handover.md.template handover.md
 install evals.md.template evals.md
-install rubrika.md rubrika.md
+install rubric.md rubric.md
 install gate.sh gate.sh && chmod +x gate.sh
 install smoke.sh.template smoke.sh && chmod +x smoke.sh
 # Enforcement layers, honestly labeled (guardrail vs. enforcement was grilled in round 1):

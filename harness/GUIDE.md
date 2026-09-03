@@ -97,7 +97,7 @@ Save diffs to .quarantine/reports/<step>.diff; I read what I need myself.
    finding (e.g. path traversal on an API with no auth at all) is triaged under
    its root, not cherry-picked. A red test ≠ production problem until the
    intended process is known. "Do not productionize — replace/retire" is a
-   legitimate verdict with a reason and a replacement named. Severity inflation = rubric bug: patch `rubrika.md`
+   legitimate verdict with a reason and a replacement named. Severity inflation = rubric bug: patch `rubric.md`
    live, reclassify, then triage.
    **Checkpoint: `/clear` the working session here** — findings merged and
    committed, porcelain clean; it resumes from handover.md. **Run `/cost`
@@ -124,7 +124,7 @@ Save diffs to .quarantine/reports/<step>.diff; I read what I need myself.
 | `bootstrap.sh` | disarm, branch, secret scan + self-test, install, settings merge |
 | `settings.json.template` | sonnet default for spawned agents, permission deny, sandbox read-deny |
 | `CLAUDE.md.template` | rules for every session and agent in the target repo |
-| `rubrika.md` | severity anchors, production ordering, sweep definitions |
+| `rubric.md` | severity anchors, production ordering, sweep definitions |
 | `gate.sh` | the gate: stack-detected smoke + lint + typecheck + tests + diff secret scan |
 | `smoke.sh.template` | main-path characterization + one assertion per fix |
 | `handover.md.template`, `evals.md.template` | the deliverables |

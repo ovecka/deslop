@@ -4,7 +4,7 @@
 #   --apply            execute
 #   --purge-reports    also delete .quarantine/reports (diffs, logs, masked scan output)
 # What stays on purpose: the triage branch with its commits, handover.md, evals.md,
-# gate.sh, smoke.sh, rubrika.md, CLAUDE.md (harness files, committed). Say this aloud.
+# gate.sh, smoke.sh, rubric.md, CLAUDE.md (harness files, committed). Say this aloud.
 set -uo pipefail
 APPLY=0; PURGE=0
 for a in "$@"; do case "$a" in --apply) APPLY=1;; --purge-reports) PURGE=1;; esac; done
@@ -47,7 +47,7 @@ echo "== 5. What stays, and how it merges =="
 BASE="$(git merge-base HEAD main 2>/dev/null || git merge-base HEAD master 2>/dev/null || echo '')"
 echo "  branch: $(git branch --show-current)"
 [ -n "$BASE" ] && { echo "  commits since base:"; git log --oneline "$BASE..HEAD" | sed 's/^/    /'; }
-echo "  harness files on the branch: CLAUDE.md rubrika.md gate.sh smoke.sh handover.md evals.md"
+echo "  harness files on the branch: CLAUDE.md rubric.md gate.sh smoke.sh handover.md evals.md"
 echo "  merge: review handover.md, then 'git merge --no-ff $(git branch --show-current)' from main; CLAUDE.md on the branch REPLACES theirs — decide before merging."
 [ "$APPLY" = 0 ] && echo "== dry run. Re-run with --apply. =="
 exit 0

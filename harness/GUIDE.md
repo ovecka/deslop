@@ -71,8 +71,9 @@ Save diffs to .quarantine/reports/<step>.diff; I read what I need myself.
    (sonnet default for agents, deny rules, sandbox read-deny). Enforcement layers,
    honestly labeled: sandbox = enforcement, permissions deny = guardrail,
    CLAUDE.md = instruction.
-1. **Orient + baseline** — install in sandbox (`--ignore-scripts`, rebuild only
-   what runtime needs), walk the main path by hand and write it into handover.md as
+1. **Orient + baseline** — install in sandbox (`--ignore-scripts` via the `.npmrc`
+   bootstrap wrote; list postinstalls with `npm query ':attr(scripts,[postinstall])'`,
+   `npm rebuild <pkg>` only what the runtime needs, after review), walk the main path by hand and write it into handover.md as
    a trace table `stage | command | input → output | network/secret` (the
    network column is the egress inventory sweep D triages), inventory tests/lint/
    typecheck/lockfile (check configuration, not exit codes). Timebox; not runnable →
